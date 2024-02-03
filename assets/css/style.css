@@ -11,8 +11,14 @@ header {
 
 aside {
   width: 30%;
+  float: left;
 }
 
 main {
   width: 70%;
+  float: right;
+}
+
+#weatherInfo {
+  border: 1px solid black;
 }
