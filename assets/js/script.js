@@ -1,42 +1,8 @@
 // Global variable
-var searchBtn = document.getElementById("searchBtn")
+var searchBtn = document.getElementById("searchBtn");
+var searchHistory = document.getElementById("searchHistory");
 var APIkey = "aad29e9f536c08c7d583250641f40a35";
 var savedSearches = [];
-
-/*var searchList = function(cityValue) {
-  $('.search-entry:contains("' + cityValue + '")').remove();
-
-  var searchHistoryEntry = $("<p>");
-  searchHistoryEntry.addClass("past-search");
-  searchHistoryEntry.text(cityValue);
-
-  var searchEntryContainer = $("<div>");
-  searchEntryContainer.addClass("past-search-container");
-
-  searchEntryContainer.append(searchHistoryEntry);
-
-  var searchHistoryContainerEl = document.querySelector("#searchHistory");
-  searchHistoryContainerEl.append(searchEntryContainer);
-
-  if (savedSearches.length > 0){
-    var previousSavedSearches = localStorage.getItem("savedSearches");
-    savedSearches = JSON.parse(previousSavedSearches);
-  }
-
-  savedSearches.push(cityValue);
-  localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
-}
-
-var loadSearchHistory = function() {
-  var savedSearchHistory = localStorage.getItem("savedSearches");
-  if (!savedSearchHistory) {
-    return false;
-  }
-  savedSearchHistory = JSON.parse(savedSearchHistory);
-  for (var i = 0; i < savedSearchHistory.length; i++) {
-    searchList(savedSearchHistory[i]);
-  }
-};*/
 
 var currentWeather = function(cityValue) {
   fetch ("http://api.openweathermap.org/geo/1.0/direct?q=" + cityValue + "&appid="+ APIkey)
@@ -98,5 +64,3 @@ searchBtn.addEventListener("click", function(){
     currentWeather(cityValue);
   }
 });
-
-//loadSearchHistory();
