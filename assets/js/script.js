@@ -3,10 +3,10 @@ var APIkey = "aad29e9f536c08c7d583250641f40a35";
 var searchForm = document.getElementById("searchForm");
 var citySearchEl = document.getElementById("citySearch");
 var searchHistory = document.getElementById("searchHistory");
-var savedSearches = [];
 var weatherInfoEl = document.getElementById("weatherInfo");
 var futureWeatherEl = document.getElementById("futureInfo");
-var futureContainerEl = document.getElementById("futureContainer")
+var futureContainerEl = document.getElementById("futureContainer");
+var clearBtn = document.getElementById("clearHistory");
 
 function weatherSearch(cityValue) {
   var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIkey + "&units=imperial";
@@ -93,6 +93,20 @@ function displaySearches() {
   searchHistory.innerHTML = html;
 }
 
+function displayHistoricalWeather(event) {
+  var cityValue = event.target.textContent;
+  weatherSearch(cityValue);
+}
+
+searchHistory.addEventListener("click", displayHistoricalWeather);
+
+displaySearches();
+
+function clearHistory() {
+  localStorage.removeItem("savedSearches");
+  displaySearches();
+};
+
 // Runs API with city from search
 function getAPI(cityValue){
   fetch ("http://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIkey)
@@ -109,9 +123,12 @@ searchForm.addEventListener("submit", function(){
   event.preventDefault();
   weatherInfoEl.classList.remove("hidden");
   futureWeatherEl.classList.remove("hidden");
-  var cityValue = citySearchEl.value.trim().toUpperCase();
+  var cityValue = citySearchEl.value.trim();
+  var cityCapitalized = cityValue.substring(0,1).toUpperCase() + cityValue.substring(1);
   getAPI(cityValue);
   if (cityValue !== "") {
     weatherSearch(cityValue);
   }
 });
+
+clearBtn.addEventListener("click", clearHistory);

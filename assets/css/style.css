@@ -15,6 +15,10 @@ aside {
   padding: 10px;
 }
 
+aside .container {
+  padding: 0;
+}
+
 main {
   width: 70%;
   float: right;
@@ -23,6 +27,10 @@ main {
 
 #weatherInfo {
   border: 1px solid black;
+}
+
+#searchBtn {
+  width: 100%;
 }
 
 .hidden {
