@@ -15,7 +15,7 @@ function weatherSearch(cityValue) {
     if (response.ok){
       response.json().then(function(data){
         displayWeatherInfo(data);
-        saveSearchHistory(city);
+        saveSearchHistory(cityValue);
       })
     }
   });
@@ -66,6 +66,31 @@ function showForecast(data) {
 
   futureContainerEl.innerHTML = html;
   futureContainerEl.classList.add("forecast");
+}
+
+function saveSearchHistory(cityValue) {
+  var savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
+  savedSearches.push(cityValue);
+  var savedSearchesNoDuplicates = [];
+  savedSearches.forEach(function(cityValue) {
+    if (!savedSearchesNoDuplicates.includes(cityValue)) {
+      savedSearchesNoDuplicates.push(cityValue);
+    }
+  });
+
+  localStorage.setItem("savedSearches", JSON.stringify(savedSearchesNoDuplicates));
+
+  displaySearches();
+}
+
+function displaySearches() {
+  var savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
+  var html = "<hr>";
+  savedSearches.forEach(function(cityValue) {
+    html += "<button class='button'>" + cityValue + "</button><br/>";
+  });
+
+  searchHistory.innerHTML = html;
 }
 
 // Runs API with city from search
