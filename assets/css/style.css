@@ -22,3 +22,11 @@ main {
 #weatherInfo {
   border: 1px solid black;
 }
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
