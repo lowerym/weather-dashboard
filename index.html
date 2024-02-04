@@ -17,23 +17,23 @@
     <h1>Weather Dashboard</h1>
   </header>
   <aside>
-    <p><strong>Search for a City:</strong></p>
-    <div id="searchForm">
-      <input type="text" name="citySearch" id="citySearch">
-      <button type="submit" id="searchBtn">Search</button>
+    <div class="container">
+      <div class="search-container">
+        <p><strong>Search for a City:</strong></p>
+        <form id="searchForm">
+          <input type="text" name="citySearch" id="citySearch">
+          <button type="submit" id="searchBtn">Search</button>
+        </form>
+      </div>
     </div>
     <div id="searchHistory" class="row searchHistoryContainer"></div>
   </aside>
   <main>
     <div id="weatherInfo" class="hidden">
-      <h2 id="currentCity" class="d-inline"></h2>
-      <img id="currentWeatherIcon">
-      <p class="current-temp" id="currentTemp"></p>
-      <p class="current-wind" id="currentWind"></p>
-      <p class="current-humd" id="currentHumd"></p>
     </div>
     <div id="futureInfo" class="hidden">
-      <h3 id="futureHeading" class="d-inline"></h2>
+      <h3>5-Day Forecast:</h3>
+      <div id="futureContainer"></div>
     </div>
   </main>
 <!--JQuery file-->

@@ -33,15 +33,12 @@ main {
   display: block;
 }
 
-#currentCity {
-  font-size: 40px;
-  margin: 15px 0 20px 20px;
-  font-weight: bold;
+.current-weather, #futureInfo {
+  padding: 20px;
 }
 
-#currentTemp, #currentWind, #currentHumd {
-  margin: 15px 20px;
-  font-size: 20px;
+.current-weather h2, #futureInfo h3 {
+  font-weight: bold;
 }
 
 .searchHistoryContainer {
@@ -61,4 +58,15 @@ main {
   line-height: 45px;
   padding: 0 20px;
   color: grey;
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forecast-item {
+  background-color: #323d4f;
+  color: white;
+  padding: 10px;
 }
