@@ -12,11 +12,13 @@ header {
 aside {
   width: 30%;
   float: left;
+  padding: 10px;
 }
 
 main {
   width: 70%;
   float: right;
+  padding: 10px;
 }
 
 #weatherInfo {
@@ -29,4 +31,15 @@ main {
 
 .visible {
   display: block;
+}
+
+#currentCity {
+  font-size: 40px;
+  margin: 15px 0 20px 20px;
+  font-weight: bold;
+}
+
+#currentTemp, #currentWind, #currentHumd {
+  margin: 15px 20px;
+  font-size: 20px;
 }

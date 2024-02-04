@@ -48,7 +48,7 @@ var currentWeather = function(cityValue) {
       var cityLat = data[i].lat;
       var cityLon = data[i].lon;
     }
-    fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + APIkey)
+    fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + cityLat + "&lon=" + cityLon + "&units=imperial&appid=" + APIkey)
     .then(function (response) {
       return response.json();
     })
@@ -59,6 +59,15 @@ var currentWeather = function(cityValue) {
       var currentIcon = $("#currentWeatherIcon");
       var currentIconCode = response.weather[0].icon;
       currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
+
+      var currentTemp = $("#currentTemp");
+      currentTemp.text("Temp: " + response.main.temp + " \u00B0F");
+
+      var currentWind = $("#currentWind");
+      currentWind.text("Wind: " + response.wind.speed + " mph");
+
+      var currentHumd = $("#currentHumd");
+      currentHumd.text("Humidity: " + response.main.humidity + "%");
     })
   })
 }
