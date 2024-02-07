@@ -7,3 +7,4 @@ For this challenge, we created an interactive weather dashboard that integrated 
 ![Web Application Screenshot](/assets/scrnli_2_6_2024_6-08-32%20PM.png)
 
 ## Link to Deployed Application
+[Click here to view the live application!](https://lowerym.github.io/weather-dashboard/)
