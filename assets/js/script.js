@@ -8,19 +8,19 @@ var futureWeatherEl = document.getElementById("futureInfo");
 var futureContainerEl = document.getElementById("futureContainer");
 var clearBtn = document.getElementById("clearHistory");
 
-function weatherSearch(cityValue) {
-  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIkey + "&units=imperial";
+function weatherSearch(cityCapitalized) {
+  var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityCapitalized + "&appid=" + APIkey + "&units=imperial";
 
   fetch(queryURL).then(function(response) {
     if (response.ok){
       response.json().then(function(data){
         displayWeatherInfo(data);
-        saveSearchHistory(cityValue);
+        saveSearchHistory(cityCapitalized);
       })
     }
   });
 
-  var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityValue + "&appid=" + APIkey + "&units=imperial";
+  var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityCapitalized + "&appid=" + APIkey + "&units=imperial";
 
   fetch(forecastURL).then(function(response){
     if (response.ok){
@@ -61,20 +61,20 @@ function showForecast(data) {
     var humd = item.main.humidity;
     var wind = item.wind.speed;
 
-    html += "<div class='forecast-item'>" + "<h5>" + date + "</h5>" + "<img src='" + iconURL + "' alt='" + item.weather[0].description + "'>" + "<p>Temp: " + temp + " &deg;F</p>" + "<p>Wind: " + wind + " MPH</p>" + "<p>Humidity: " + humd + "%</p>" + "</div>";
+    html += "<div class='forecast-item'>" + "<h5 style='font-weight:bold;'>" + date + "</h5>" + "<img src='" + iconURL + "' alt='" + item.weather[0].description + "'>" + "<p>Temp: " + temp + " &deg;F</p>" + "<p>Wind: " + wind + " MPH</p>" + "<p>Humidity: " + humd + "%</p>" + "</div>";
   });
 
   futureContainerEl.innerHTML = html;
   futureContainerEl.classList.add("forecast");
 }
 
-function saveSearchHistory(cityValue) {
+function saveSearchHistory(cityCapitalized) {
   var savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
-  savedSearches.push(cityValue);
+  savedSearches.push(cityCapitalized);
   var savedSearchesNoDuplicates = [];
-  savedSearches.forEach(function(cityValue) {
-    if (!savedSearchesNoDuplicates.includes(cityValue)) {
-      savedSearchesNoDuplicates.push(cityValue);
+  savedSearches.forEach(function(cityCapitalized) {
+    if (!savedSearchesNoDuplicates.includes(cityCapitalized)) {
+      savedSearchesNoDuplicates.push(cityCapitalized);
     }
   });
 
@@ -86,16 +86,18 @@ function saveSearchHistory(cityValue) {
 function displaySearches() {
   var savedSearches = JSON.parse(localStorage.getItem("savedSearches")) || [];
   var html = "<hr>";
-  savedSearches.forEach(function(cityValue) {
-    html += "<button class='button'>" + cityValue + "</button><br/>";
+  savedSearches.forEach(function(cityCapitalized) {
+    html += "<button class='btn btn-secondary' style='margin-bottom: 5px;'>" + cityCapitalized + "</button><br/>";
   });
 
   searchHistory.innerHTML = html;
 }
 
 function displayHistoricalWeather(event) {
-  var cityValue = event.target.textContent;
-  weatherSearch(cityValue);
+  var cityCapitalized = event.target.textContent;
+  weatherSearch(cityCapitalized);
+  weatherInfoEl.classList.remove("hidden");
+  futureWeatherEl.classList.remove("hidden");
 }
 
 searchHistory.addEventListener("click", displayHistoricalWeather);
@@ -108,8 +110,8 @@ function clearHistory() {
 };
 
 // Runs API with city from search
-function getAPI(cityValue){
-  fetch ("http://api.openweathermap.org/data/2.5/weather?q=" + cityValue + "&appid=" + APIkey)
+function getAPI(cityCapitalized){
+  fetch ("http://api.openweathermap.org/data/2.5/weather?q=" + cityCapitalized + "&appid=" + APIkey)
   .then(function (response) {
     return response.json();
   })
@@ -124,10 +126,10 @@ searchForm.addEventListener("submit", function(){
   weatherInfoEl.classList.remove("hidden");
   futureWeatherEl.classList.remove("hidden");
   var cityValue = citySearchEl.value.trim();
-  var cityCapitalized = cityValue.substring(0,1).toUpperCase() + cityValue.substring(1);
-  getAPI(cityValue);
-  if (cityValue !== "") {
-    weatherSearch(cityValue);
+  var cityCapitalized = cityValue[0].toUpperCase() + cityValue.substring(1);
+  getAPI(cityCapitalized);
+  if (cityCapitalized !== "") {
+    weatherSearch(cityCapitalized);
   }
 });
 
